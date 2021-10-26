@@ -1,4 +1,7 @@
 import alpaca_trade_api as tradeapi
+import keep_alive
+keep_alive.keep_alive()
+
 
 SEC_KEY = '' 
 PUB_KEY = '' 
