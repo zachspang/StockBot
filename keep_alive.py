@@ -1,3 +1,5 @@
+#keep_alive creates a websever and pings the server to keep it running.
+
 from flask import Flask
 from threading import Thread
 
