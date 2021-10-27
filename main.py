@@ -6,13 +6,14 @@ import algotest
 keep_alive.keep_alive()
 
 
-SEC_KEY = '' 
-PUB_KEY = '' 
+
+SEC_KEY = 'PVZEOg56YlMyxUlxcLVJte0iBO7a1x68RrXla058' 
+PUB_KEY = 'PKX2IDT410UF4PRQTFM0' 
 BASE_URL = 'https://paper-api.alpaca.markets'
 api = tradeapi.REST(key_id= PUB_KEY, secret_key=SEC_KEY, base_url=BASE_URL)
 #stock ticker that is being traded
-symb = "SPY"
-
+symb = "MSFT"
+time.sleep(1)
 tradeortest = input("Input test or trade:")
 if tradeortest == "test":
   hours = input("How many hours would you like to test for?")
@@ -44,18 +45,18 @@ elif tradeortest == "trade":
       # most recent closing price
       last_price = close_list[4]
 
-      print("Moving Average" + str(ma))
-      print("Last Price" + str(last_price))
+      print("Moving Average " + str(ma))
+      print("Last Price " + str(last_price))
 
       # If the MA is more than 10 cents under price and has not been bought yet
       if ma + 0.1 < last_price and not pos_held:
         print("Buy")
         api.submit_order(
           symbol = symb,
-          qty = 1,
+          qty = 0.0316,
           side= 'buy',
           type = 'market',
-          time_in_force='gtc'
+          time_in_force='day'
         )
         pos_held = True
       
@@ -64,10 +65,10 @@ elif tradeortest == "trade":
         print("Sell")
         api.submit_order(
           symbol=symb,
-          qty=1,
+          qty=0.0316,
           side='sell',
           type='market',
-          time_in_force='gtc'
+          time_in_force='day'
         )
         pos_held = False
 

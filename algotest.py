@@ -2,7 +2,10 @@ import numpy as np
 import time
 import alpaca_trade_api as tradeapi
 
+
+
 def algotest(api, symb, hours):
+    pos_held = False
     hours_to_test = hours
 
     print("Checking Price")
@@ -19,7 +22,7 @@ def algotest(api, symb, hours):
 
 
     close_list = np.array(close_list, dtype=np.float64)
-    startBal = 2000 # Start out with 2000 dollars
+    startBal = 20 # Start out with 2000 dollars
     balance = startBal
     buys = 0
     sells = 0
