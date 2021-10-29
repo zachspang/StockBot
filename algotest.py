@@ -9,11 +9,12 @@ def algotest(api, symb, hours):
     hours_to_test = hours
 
     print("Checking Price")
-    market_data = api.get_barset(symb, 'minute', limit=(60 * hours_to_test)) # Pull market data from the past 60x minutes
-
+    market_data = api.get_crypto_bars(symb, "1Min", exchanges='CBSE').df
+    market_data = market_data.to_numpy()
     close_list = []
-    for bar in market_data[symb]:
-        close_list.append(bar.c)
+    for i in range(1,(hours_to_test * 60)+1):
+      #appends closing price from pandas dataframe table.
+      close_list.append( market_data[-i][4])
 
 
 
@@ -22,7 +23,7 @@ def algotest(api, symb, hours):
 
 
     close_list = np.array(close_list, dtype=np.float64)
-    startBal = 20 # Start out with 2000 dollars
+    startBal = 50 # Start out with 2000 dollars
     balance = startBal
     buys = 0
     sells = 0
@@ -31,7 +32,7 @@ def algotest(api, symb, hours):
 
     for i in range(4, 60 * hours_to_test): # Start four minutes in, so that MA can be calculated
         ma = np.mean(close_list[i-4:i+1])
-        last_price = close_list[i]
+        last_price = close_list[-1]
 
         print("Moving Average: " + str(ma))
         print("Last Price: " + str(last_price))
